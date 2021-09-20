@@ -1,0 +1,86 @@
+import random
+import matplotlib.pyplot as plt
+
+
+d=[1/10,2/10,3/10,4/10,5/10,6/10,7/10,8/10,9/10,10/10,15/10,2,3]
+probabilityof1=[]
+probabilityof2=[]
+probabilityof3=[]
+probabilityof4=[]
+def ProbabilityofOneLine(diameter):
+  width=1
+  throws=1444444
+  radius=diameter/2
+  success=0
+  while (throws>0):
+    toss=random.uniform(0,width)
+    if (toss-radius<=0 or radius+toss>=1):
+      #print (radius,toss)
+      success=success+1
+    throws=throws-1
+  probability=success/1444444
+  return probability
+
+def Probabilityoftwolines(diameter):
+  #guaranteed to cross one line
+  width=1
+  radius=diameter/2
+  throws=1444444
+  probabilityofcorssingsecondline=0
+  success=0
+  while(throws>0):
+    toss=random.uniform(0,width)
+    if (toss-radius<=0 and radius+toss>=1):
+      success+=1
+      #print (radius,toss)
+    throws-=1
+  probability=success/1444444
+  return probability
+  
+def Probabilityofthreelines(diameter):
+  #guaranteed to cross 2 lines
+  width=1
+  radius=diameter/2
+  throws=1444444
+  success=0
+  while(throws>0):
+    toss=random.uniform(0,width)
+    if ((toss-radius<=0 and toss+radius>=2) or (toss-radius<=-1 and toss+radius>=1)):
+      success+=1
+    throws-=1
+  probability=success/1444444
+  return (probability)
+  
+def probabilityoffourlines(diameter):
+  return 0  
+
+def GraphLineOne():
+  for item in d:
+    probabilityof1.append(ProbabilityofOneLine(item))
+  plt.plot(d,probabilityof1,label="1 line")
+  plt.show()
+
+def GraphLineTwo():
+  for item in d:
+    probabilityof2.append(Probabilityoftwolines(item))
+  plt.plot(d,probabilityof2,label="2 lines")
+  plt.show()
+  
+def GraphLineThree():
+  for item in d:
+    probabilityof3.append(Probabilityofthreelines(item))
+  plt.plot(d,probabilityof3,label="3 lines")
+  plt.show()
+  
+def GraphLineFour():
+  for item in d:
+    probabilityof4.append(probabilityoffourlines(item))
+  plt.plot(d,probabilityof4, label="4 lines")
+  plt.legend()
+  plt.show()
+  
+  
+GraphLineOne()
+GraphLineTwo()
+GraphLineThree()
+GraphLineFour()
